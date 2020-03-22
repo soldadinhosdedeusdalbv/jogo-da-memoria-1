@@ -1,6 +1,8 @@
 * {
   padding: 0;
   margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -16,6 +18,8 @@ body {
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  -moz-perspective: 1000px;
+  -webkit-perspective: 1000px;
   perspective: 1000px;
 }
 
@@ -30,6 +34,9 @@ body {
   -o-transform: scale(1);
   transform: scale(1);
   transform-style: preserve-3d;
+  -webkit-transition: transform .5s;
+  -moz-transition: transform .5s;
+  -o-transition: transform .5s;
   transition: transform .5s;
   -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.3);
   -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.3);
@@ -42,6 +49,9 @@ body {
   -moz-transform: scale(0.97);
   -o-transform: scale(0.97);
   transform: scale(0.97);
+  -webkit-transition: transform .2s;
+  -moz-transition: transform .2s;
+  -o-transition: transform .2s;
   transition: transform .2s;
 }
 
@@ -59,8 +69,11 @@ body {
   height: 100%;
   padding: 20px;
   position: absolute;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
   background: #1C7CCC;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
