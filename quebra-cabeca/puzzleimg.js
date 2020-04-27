@@ -7,7 +7,12 @@ Receives:
  wg = canvas width (optional)
  hg = canvas height (optional)
 */
+window.flag = true;
+window.im2 = '';
+window.pim2 = 'qqcoisa';
 function PuzzleImg(id_p, im, cols, rows, wg, hg){
+  window.pim2 = window.im2;
+  window.im2 = im;
   var me = this;
   var img ='';  //image object
   var cnt ='';  //canvas content obj.
@@ -18,8 +23,10 @@ function PuzzleImg(id_p, im, cols, rows, wg, hg){
   var rows = rows;
   var p_size ='';  //obj. sizes of image piece
   var tl_size =''; //obj. sizes of tiles in canvas
-  var im_p = [];  //array with objects with coords of image pieces {px,py, tx,ty,id}. Set 0 after puzzle completed
-  var tl_p = [];  //object with tiles to draw in canvas id:{px,py, tx,ty, ord}
+  if(window.pim2 != window.im2) {
+  window.im_p = [];  //array with objects with coords of image pieces {px,py, tx,ty,id}. Set 0 after puzzle completed
+  window.tl_p = [];  //object with tiles to draw in canvas id:{px,py, tx,ty, ord}
+  }
   var tl_h =-1;  //ids of hovered tile
   var tl_c =-1;  //ids of 1st clicked tile of two (-1 from start)
   var solv =0;  //1 when puzzle is solved, -1 when is solved from button
@@ -60,7 +67,7 @@ function PuzzleImg(id_p, im, cols, rows, wg, hg){
             //if 1st tile, add id in $tl_c and draw border, else, swap tiles
             if(tl_c ==-1){
               tl_c = id;
-              drawB(2, '#f00', id);
+              drawB(10, '#f3c62b', id);
             }
             else {
               var tl2 = {tx:tl_p[id].tx, ty:tl_p[id].ty, ord:tl_p[id].ord};//data of 2nd tile to be added in 1st tile
@@ -88,8 +95,8 @@ function PuzzleImg(id_p, im, cols, rows, wg, hg){
             if(tl_h != id){
               tl_h = id;
               drawTL(tl_p);
-              if(tl_c !=-1) drawB(2, '#f00', tl_c);  //for clicked
-              drawB(2, '#f8f900', id);
+              if(tl_c !=-1) drawB(10, '#f3c62b', tl_c);  //for clicked
+              drawB(10, '#f3c62b', id);
             }
             break;
           }
@@ -107,27 +114,33 @@ function PuzzleImg(id_p, im, cols, rows, wg, hg){
 
   //get image pieces from $img and set it in $im_p
   function setImP(){
+
+    if(window.pim2 != window.im2) {
     for(var i=0; i<cols * rows; ++i) {
       var c = Math.floor(i /rows);  var r = i %rows;  //current column /rom of piece in img
       //add in $im_p object with positions of pieces in image
       im_p.push({px:c *p_size.w, py:r * p_size.h, tx:c *tl_size.w, ty:r *tl_size.h, id:i});
     }
     for(var j, x, i = im_p.length; i; j = Math.floor(Math.random() * i), x = im_p[--i], im_p[i] = im_p[j], im_p[j] = x);  //shuffle array
+  }
     setTL();  //set canvas tiles
   }
 
   //set tiles in $tl_p from $im_p
   function setTL(){
+    // if(window.pim2 != window.im2) {
     for(var i=0; i<im_p.length; i++){
       var c = Math.floor(i /rows);  var r = i %rows;  //current column /rom of tile in canvas
       tl_p[im_p[i].id] = {px:im_p[i].px, py:im_p[i].py, tx:c *tl_size.w, ty:r *tl_size.h, ord:i};
     }
+  // }
     drawTL(tl_p);  //draw tiles in canvas
   }
 
   //draw tiles from $tls
   function drawTL(tls){
     for(var id in tl_p){
+      cnt.imageSmoothingEnabled = window.flag;
       cnt.drawImage(img, tls[id].px, tls[id].py, p_size.w, p_size.h, tls[id].tx, tls[id].ty, tl_size.w, tl_size.h);
     }
     checkPuzzle();  //check if puzzle completed
@@ -142,6 +155,7 @@ function PuzzleImg(id_p, im, cols, rows, wg, hg){
       }
     }
     if(re ==1){
+      cnt.imageSmoothingEnabled = window.flag;
       cnt.drawImage(img, 0, 0, width, height);
 
       //if solved manually (-1 is auto) calls solved()
