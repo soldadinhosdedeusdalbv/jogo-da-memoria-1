@@ -97,13 +97,11 @@ window.Memory = {
 
   buildHTML: function(){
     var frag = '';
-    this.$cards.each(function(k, v){
+    this.$cards.each(function(k, v) {
       frag += '<div class="card" data-id="'+ v.id +'"><div class="inside">\
-      <div class="front"><img src="'+ v.img +'"\
-      /></div>\
-      <div class="back"><img src="' + window.MemoryLogotype + '"\
-      /></div></div>\
-      </div>';
+      <div class="front"><img src="'+ v.img +'"/></div>\
+      <div class="back"><img src="' + window.MemoryLogotype.replace('{n}', k+1) + '"/></div>\
+      </div></div>';
     });
     return frag;
   }
