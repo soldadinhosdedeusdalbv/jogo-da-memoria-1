@@ -27,6 +27,7 @@ window.Memory = {
     this.$memoryCards.on("click", this.cardClicked);
     this.$restartButton.on("click", $.proxy(this.reset, this));
   },
+
   // kinda messy but hey
   cardClicked: function(){
     var _ = Memory;
@@ -74,11 +75,11 @@ window.Memory = {
     this.hideModal();
     this.shuffleCards(this.cardsArray);
     this.setup();
-    this.$game.show("slow");
+    this.$game.fadeIn("slow");
     this.binding();
   },
 
-  // Fisher--Yates Algorithm -- https://bost.ocks.org/mike/shuffle/
+  // Fisher-Yates Algorithm -- https://bost.ocks.org/mike/shuffle/
   shuffle: function(array){
     var counter = array.length, temp, index;
     // While there are elements in the array
@@ -97,13 +98,11 @@ window.Memory = {
 
   buildHTML: function(){
     var frag = '';
-    this.$cards.each(function(k, v){
+    this.$cards.each(function(k, v) {
       frag += '<div class="card" data-id="'+ v.id +'"><div class="inside">\
-      <div class="front"><img src="'+ v.img +'"\
-      /></div>\
-      <div class="back"><img src="' + window.MemoryLogotype + '"\
-      /></div></div>\
-      </div>';
+      <div class="front"><img src="'+ v.img +'"/></div>\
+      <div class="back"><img src="' + window.MemoryLogotype.replace('{n}', k+1) + '"/></div>\
+      </div></div>';
     });
     return frag;
   }
