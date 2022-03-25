@@ -145,6 +145,10 @@ body {
   color: #000;
 }
 
+.tv .modal .winner {
+  margin: 120px auto;
+}
+
 .modal .restart {
   margin: 30px auto;
   padding: 20px 30px;
@@ -158,6 +162,16 @@ body {
 }
 .modal .restart:hover {
   background-color: #00435a;
+}
+
+.tv .modal .restart {
+  margin: -200px auto;
+  color: transparent;
+}
+
+.tv .modal .restart,
+.tv .modal .restart:hover {
+  background-color: transparent;
 }
 
 @media (max-width: 480px) {
